@@ -1,0 +1,57 @@
+{
+  "name": "Meridian Research",
+  "purpose": "An AI research agent app where a signed-in user submits a research question, the agent runs a sequence of steps, and each step's activity and result is recorded and shown as a timeline, ending in a synthesized answer.",
+  "actors": [
+    "Researcher (signed-in user)",
+    "Research Agent (runs steps via a provider adapter)"
+  ],
+  "entities": [
+    {
+      "name": "User",
+      "relationships": [
+        "owns many researches"
+      ]
+    },
+    {
+      "name": "Research",
+      "relationships": [
+        "belongs_to a User",
+        "has_many steps, ordered",
+        "stores the research question and final synthesis"
+      ]
+    },
+    {
+      "name": "Step",
+      "relationships": [
+        "belongs_to a Research",
+        "carries name, status, input, result, and position in the run"
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Sign in and start a research project",
+      "description": "User submits a research question from the new-research form."
+    },
+    {
+      "name": "Run the agent",
+      "description": "Agent executes steps in order; each step's status and result is persisted as it completes."
+    },
+    {
+      "name": "View the timeline",
+      "description": "Research show page renders the recorded steps as a timeline plus the final synthesis."
+    },
+    {
+      "name": "Review past runs",
+      "description": "User's research index lists previous questions, dates, and statuses."
+    }
+  ],
+  "modules": [],
+  "integrations": [
+    {
+      "name": "LLM provider adapter (OpenAI-compatible chat completions)",
+      "demo_adapter": true
+    }
+  ],
+  "seed_demo": "A demo user with one completed research run (\"The history of espresso\") showing a full timeline of completed steps and a final synthesis, so the timeline UI is visible immediately."
+}
